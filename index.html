@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精神小伙&精神小妹潮流根据地</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 顶部霓虹导航 -->
+    <header class="header">
+        <div class="logo">
+            <h1>精神家族聚集地</h1>
+            <p>小伙够帅 小妹够飒</p>
+        </div>
+        <nav class="nav">
+            <a href="#home" class="active">首页</a>
+            <a href="#card">人物图鉴</a>
+            <a href="#words">社会语录</a>
+            <a href="#gallery">潮流相册</a>
+            <a href="#msg">家族留言</a>
+        </nav>
+        <div class="music-box">
+            <button id="musicBtn">播放BGM</button>
+            <audio id="bgMusic" loop>
+                <source src="" type="audio/mpeg">
+            
+        </div>
+    </header>
+
+    <!-- 首页轮播横幅 -->
+    <section id="home" class="banner">
+        <div class="banner-wrap">
+            <div class="banner-item active">
+                <div class="banner-text">
+                    <h2>精神小伙 气质拉满</h2>
+                    <p>不攀不比，做自己的潮流天花板</p>
+                </div>
+            </div>
+            <div class="banner-item">
+                <div class="banner-text">
+                    <h2>精神小妹 气场全开</h2>
+                    <p>妆容精致，走路自带闪光灯</p>
+                </div>
+            </div>
+            <div class="banner-item">
+                <div class="banner-text">
+                    <h2>全网精神家族集合地</h2>
+                    <p>同款穿搭、热门语录、潮流合拍</p>
+                </div>
+            </div>
+        </div>
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- 人物图鉴 -->
+        <section id="card" class="module">
+            <h2 class="title">人物图鉴｜精神小伙&小妹</h2>
+            <div class="card-wrap">
+                <div class="person-card">
+                    <div class="avatar boy"></div>
+                    <h3>标准精神小伙</h3>
+                    <p>锅盖头、紧身裤、豆豆鞋、走路外八</p>
+                </div>
+                <div class="person-card">
+                    <div class="avatar girl"></div>
+                    <h3>标准精神小妹</h3>
+                    <p>浓眼线、刘海贴、发色亮眼、穿搭辣妹</p>
+                </div>
+                <div class="person-card">
+                    <div class="avatar cp"></div>
+                    <h3>精神CP组合</h3>
+                    <p>一对潮流搭子，走到哪都是焦点</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 社会语录墙 -->
+        <section id="words" class="module word-wall">
+            <h2 class="title">热门精神语录</h2>
+            <div class="word-list">
+                <div class="word-item">花花世界迷人眼，没有实力别赛脸</div>
+                <div class="word-item">刀配鞘，人配道，精神小伙不胡闹</div>
+                <div class="word-item">小妹不花心，只是身边人多</div>
+                <div class="word-item">天高地厚别狂傲，低调才是王道</div>
+                <div class="word-item">一身气质一身骨，不做世间风尘物</div>
+                <div class="word-item">精神不分年龄段，气质到位人人酷</div>
+            </div>
+        </section>
+
+        <!-- 潮流相册 -->
+        <section id="gallery" class="module">
+            <h2 class="title">潮流穿搭相册</h2>
+            <div class="gallery-wrap">
+                <div class="gallery-item">小伙穿搭</div>
+                <div class="gallery-item">小妹妆容</div>
+                <div class="gallery-item">合拍街拍</div>
+                <div class="gallery-item">发色造型</div>
+                <div class="gallery-item">网红配饰</div>
+                <div class="gallery-item">热门手势</div>
+            </div>
+        </section>
+
+        <!-- 家族留言板 -->
+        <section id="msg" class="module">
+            <h2 class="title">家族留言区</h2>
+            <div class="msg-input-box">
+                <input type="text" id="userName" placeholder="你的称呼">
+                <textarea id="userMsg" placeholder="留下你的精神文案"></textarea>
+                <button id="sendMsg">发布留言</button>
+            </div>
+            <div id="msgBox" class="msg-show"></div>
+        </section>
+    </div>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <p>© 2026 精神家族潮流网站 | 纯静态GitHub Pages展示站</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
