@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灵魂人设卡片｜灵魂渡</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"思源宋体",serif;}
+body.dark{background:#0c101c;color:#e8edf7;}
+body.light{background:#f7f9ff;color:#222940;}
+.star{position:fixed;pointer-events:none;animation:starFloat 12s linear infinite;opacity:0.6;z-index:-1;}
+@keyframes starFloat{
+0%{transform:translateY(100vh) rotate(0deg);opacity:0;}
+15%{opacity:1;}
+85%{opacity:1;}
+100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}
+}
+.soul-title{
+font-size:34px;font-weight:300;letter-spacing:5px;
+color:#fff;
+text-shadow:0 0 6px #a8b8ff,0 0 12px #839cff;
+}
+.broad{width:100%;height:36px;background:#b8c8ff;line-height:36px;overflow:hidden;}
+.broad-text{white-space:nowrap;animation:broadRun 24s linear infinite;color:#0c101c;font-size:15px;}
+@keyframes broadRun{0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
+nav{width:100%;background:rgba(20,26,44,0.75);padding:16px 0;text-align:center;border-bottom:1px solid #839cff60;backdrop-filter:blur(6px);}
+nav a{color:#d0daff;text-decoration:none;margin:0 14px;padding:9px 16px;border-radius:26px;transition:0.4s;font-size:16px;}
+nav a:hover{background:#839cff;color:#0c101c;box-shadow:0 0 14px #839cff70;}
+.box{width:92%;max-width:1250px;margin:32px auto;padding:28px;border-radius:20px;border:1px solid #839cff40;background:rgba(30,38,60,0.4);box-shadow:0 0 30px #627fff20;
