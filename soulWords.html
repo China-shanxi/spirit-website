@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灵魂语录｜灵魂渡</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"思源宋体",serif;}
+body.dark{background:#0c101c;color:#e8edf7;}
+body.light{background:#f7f9ff;color:#222940;}
+.star{position:fixed;pointer-events:none;animation:starFloat 12s linear infinite;opacity:0.6;z-index:-1;}
+@keyframes starFloat{
+0%{transform:translateY(100vh) rotate(0deg);opacity:0;}
+15%{opacity:1;}
+85%{opacity:1;}
+100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}
+}
+.soul-title{
+font-size:34px;font-weight:300;letter-spacing:5px;
+color:#fff;
+text-shadow:0 0 6px #a8b8ff,0 0 12px #839cff;
+}
+.broad{width:100%;height:36px;background:#b8c8ff;line-height:36px;overflow:hidden;}
+.broad-text{white-space:nowrap;animation:broadRun 24s linear infinite;color:#0c101c;font-size:15px;}
+@keyframes broadRun{0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
+nav{width:100%;background:rgba(20,26,44,0.75);padding:16px 0;text-align:center;border-bottom:1px solid #839cff60;backdrop-filter:blur(6px);}
+nav a{color:#d0daff;text-decoration:none;margin:0 14px;padding:9px 16px;border-radius:26px;transition:0.4s;font-size:16px;}
+nav a:hover{background:#839cff;color:#0c101c;box-shadow:0 0 14px #839cff70;}
+.box{width:92%;max-width:1250px;margin:32px auto;padding:28px;border-radius:20px;border:1px solid #839cff40;background:rgba(30,38,60,0.4);box-shadow:0 0 30px #627fff20;backdrop-filter:blur(4px);}
+.box h2{margin-bottom:22px;color:#a8b8ff;border-left:4px solid #839cff;padding-left:12px;font-weight:400;}
+.word-item{background:rgba(10,14,30,0.5);padding:18px;border-radius:14px;margin-bottom:16px;border:1px solid #839cff30;}
+.btn{display:inline-block;padding:11px 24px;background:linear-gradient(45deg,#839cff,#627fff);color:#0c101c;border:none;border-radius:32px;font-weight:500;cursor:pointer;margin:10px;transition:0.35s;font-size:15px;}
+.btn:hover{transform:scale(1.04);box-shadow:0 0 18px #839cff80;}
+.theme-switch{position:fixed;top:18px;right:20px;z-index:999;}
+input,select,textarea{width:100%;padding:12px;margin:10px 0;border-radius:10px;border:1px solid #839cff;background:rgba(12,16,28,0.7);color:#e8edf7;font-size:16px;}
+footer{margin-top:60px;padding:24px;text-align:center;color:#949fc7;font-size:14px;border-top:1px solid #839cff25;}
+</style>
+</head>
+<body class="dark">
+<div class="theme-switch">
+<button class="btn" onclick="toggleTheme()">切换静谧/温柔模式</button>
+</div>
+<div class="broad">
+<div class="broad-text">灵魂语录｜自定义字体文字颜色｜一键生成治愈心灵海报｜复制文案用于树洞</div>
+</div>
+<div style="text-align:center;margin:30px 0;">
+<h1 class="soul-title">灵魂语录集</h1>
+<p style="color:#c0ccff;margin-top:10px;letter-spacing:2px;">写给疲惫、内耗、失眠的你</p>
+</div>
+<nav>
+<a href="index.html">首页</a>
+<a href="soulWords.html">灵魂语录</a>
+<a href="soulPic.html">治愈壁纸图库</a>
+<a href="meditation.html">冥想轻音乐</a>
+<a href="treeHole.html">情绪树洞</a>
+<a href="selfHeal.html">自愈图文投稿</a>
+<a href="materialSoul.html">动态背景素材</a>
+<a href="photoEdit.html">柔光图片修图</a>
+<a href="soulCard.html">灵魂人设卡片</a>
+<a href="matchSoul.html">氛围感好物</a>
+</nav>
+<div class="box">
+<h2>自定义海报生成器</h2>
+<input type="text" id="customWordInput" placeholder="输入你想做成海报的心灵文案...">
+<div>
+<span>选择字体：</span>
+<select id="fontSel">
+<option value="思源宋体">思源宋体（温柔）</option>
+<option value="微软雅黑">微软雅黑（简约）</option>
+<option value="宋体">宋体（文艺）</option>
+</select>
+</div>
+<div style="margin:12px 0;">
+<span>文字颜色：</span>
+<input type="color" id="colorSel" value="#e8edf7" style="width:45px;height:45px;border:none;">
+</div>
+<button class="btn" onclick="createCustomPoster()">生成自定义治愈海报</button>
+</div>
+<div class="box">
+<h2>全部治愈语录</h2>
+<div id="wordListBox"></div>
+</div>
+<footer>灵魂渡治愈小站 © 2026</footer>
+<canvas id="customWordCanvas" style="display:none;"></canvas>
+<script>
+const wordData = [
+"允许一切发生，允许自己不完美。",
+"不必追赶月光，你本身就温柔发光。",
+"内耗源于期待，自愈始于放下。",
+"慢下来，灵魂才能跟上脚步。",
+"世间万般苦难，都是心灵的修行。",
+"不必所有人理解你，心安即是归处。",
+"失眠的夜晚，是灵魂在和自己对话。",
+"与自己和解，是一生最重要的课题。",
+"不用强迫自己积极，低落也是正常情绪。",
+"风会带走烦恼，时间会抚平所有委屈。"
+];
+// 渲染语录列表
+function renderWords(){
+let box = document.getElementById("wordListBox");
+box.innerHTML = "";
+wordData.forEach((txt,i)=>{
+let div = document.createElement("div");
+div.className = "word-item";
+div.innerHTML = `
+<p style="color:#d0daff;line-height:1.8;font-size:17px;">${txt}</p>
+<button class="btn" onclick="copySingle(${i})">复制</button>
+<button class="btn" onclick="fillToInput(${i})">做成海报</button>
+`;
+box.appendChild(div);
+})
+}
+// 复制单条文案
+function copySingle(i){
+navigator.clipboard.writeText(wordData[i]).then(()=>alert("文案复制完成"));
+}
+// 填充到自定义输入框
+function fillToInput(i){
+document.getElementById("customWordInput").value = wordData[i];
+}
+// 自定义海报生成
+function createCustomPoster(){
+let text = document.getElementById("customWordInput").value.trim();
+let font = document.getElementById("fontSel").value;
+let color = document.getElementById("colorSel").value;
+if(!text) return alert("请输入心灵文案");
+let canvas = document.getElementById("customWordCanvas");
+canvas.width = 750;canvas.height = 1334;
+let ctx = canvas.getContext("2d");
+let grad = ctx.createLinearGradient(0,0,750,1334);
+grad.addColorStop(0,"#0c101c");
+grad.addColorStop(0.5,"#303f70");
+grad.addColorStop(1,"#839cff");
+ctx.fillStyle = grad;
+ctx.fillRect(0,0,750,1334);
+ctx.fillStyle = color;
+ctx.font = "bold 42px "+font;
+ctx.textAlign = "center";
+let line = "";let y = 600;
+for(let c of text){
+let test = line + c;
+if(ctx.measureText(test).width > 640){
+ctx.fillText(line,375,y);
+line = c;y += 70;
+}else line = test;
+}
+ctx.fillText(line,375,y);
+ctx.font = "24px "+font;
+ctx.fillStyle = "#c0ccff";
+ctx.fillText("灵魂渡｜治愈心灵",375,1220);
+let a = document.createElement("a");
+a.download = "自定义灵魂海报.png";
+a.href = canvas.toDataURL("image/png");
+a.click();
+}
+// 星光粒子
+function createStar(){
+const star = document.createElement('div');
+star.className = 'star';
+star.innerHTML = '✦';
+star.style.left = Math.random()*100+'vw';
+star.style.fontSize = Math.random()*18+6+'px';
+star.style.color = ['#a8b8ff','#d0daff','#fff'][Math.floor(Math.random()*3)];
+document.body.appendChild(star);
+setTimeout(()=>star.remove(),12000);
+}
+setInterval(createStar,400);
+// 主题切换
+function toggleTheme(){
+document.body.classList.toggle('dark');
+document.body.classList.toggle('light');
+}
+// 读取全局背景
+window.onload = function(){
+renderWords();
+let saveBg = localStorage.getItem("soulGlobalBg");
+if(saveBg){
+document.body.style.backgroundImage = `url(${saveBg})`;
+document.body.style.backgroundSize = "cover";
+document.body.style.backgroundAttachment = "fixed";
+document.body.style.backgroundRepeat = "no-repeat";
+}
+}
+</script>
+</body>
+</html>
