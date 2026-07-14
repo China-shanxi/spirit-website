@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>柔光图片修图｜灵魂渡</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"思源宋体",serif;}
+body.dark{background:#0c101c;color:#e8edf7;}
+body.light{background:#f7f9ff;color:#222940;}
+.star{position:fixed;pointer-events:none;animation:starFloat 12s linear infinite;opacity:0.6;z-index:-1;}
+@keyframes starFloat{
+0%{transform:translateY(100vh) rotate(0deg);opacity:0;}
+15%{opacity:1;}
+85%{opacity:1;}
+100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}
+}
+.soul-title{
+font-size:34px;font-weight:300;letter-spacing:5px;
+color:#fff;
+text-shadow:0 0 6px #a8b8ff,0 0 12px #839cff;
+}
+.broad{width:100%;height:36px;background:#b8c8ff;line-height:36px;overflow:hidden;}
+.broad-text{white-space:nowrap;animation:broadRun 24s linear infinite;color:#0c101c;font-size:15px;}
+@keyframes broadRun{0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
+nav{width:100%;background:rgba(20,26,44,0.75);padding:16px 0;text-align:center;border-bottom:1px solid #839cff60;backdrop-filter:blur(6px);}
+nav a{color:#d0daff;text-decoration:none;margin:0 14px;padding:9px 16px;border-radius:26px;transition:0.4s;font-size:16px;}
+nav a:hover{background:#839cff;color:#0c101c;box-shadow:0 0 14px #839cff70;}
+.box{width:92%;max-width:1250px;margin:32px auto;padding:28px;border-radius:20px;border:1px solid #839cff40;background:rgba(30,38,60,0.4);box-shadow:0 0 30px #627fff20;backdrop-filter:blur(4px);}
+.box h2{margin-bottom:22px;color:#a8b8ff;border-left:4px solid #839cff;padding-left:12px;font-weight:400;}
+canvas{max-width:100%;border-radius:14px;margin:15px 0;}
+.btn{display:inline-block;padding:11px 24px;background:linear-gradient(45deg,#839cff,#627fff);color:#0c101c;border:none;border-radius:32px;font-weight:500;cursor:pointer;margin:10px;transition:0.35s;font-size:15px;}
+.btn:hover{transform:scale(1.04);box-shadow:0 0 18px #839cff80;}
+.theme-switch{position:fixed;top:18px;right:20px;z-index:999;}
+footer{margin-top:60px;padding:24px;text-align:center;color:#949fc7;font-size:14px;border-top:1px solid #839cff25;}
+</style>
+</head>
+<body class="dark">
+<div class="theme-switch">
+<button class="btn" onclick="toggleTheme()">切换静谧/温柔模式</button>
+</div>
+<div class="broad">
+<div class="broad-text">柔光修图工具｜薄雾柔光｜清冷星空｜低饱和温柔滤镜｜一键导出修图成品</div>
+</div>
+<div style="text-align:center;margin:30px 0;">
+<h1 class="soul-title">治愈柔光修图</h1>
+<p style="color:#c0ccff;margin-top:10px;letter-spacing:2px;">一键调出温柔氛围感照片</p>
+</div>
+<nav>
+<a href="index.html">首页</a>
+<a href="soulWords.html">灵魂语录</a>
+<a href="soulPic.html">治愈壁纸图库</a>
+<a href="meditation.html">冥想轻音乐</a>
+<a href="treeHole.html">情绪树洞</a>
+<a href="selfHeal.html">自愈图文投稿</a>
+<a href="materialSoul.html">动态背景素材</a>
+<a href="photoEdit.html">柔光图片修图</a>
+<a href="soulCard.html">灵魂人设卡片</a>
+<a href="matchSoul.html">氛围感好物</a>
+</nav>
+<div class="box">
+<h2>上传图片开始修图</h2>
+<input type="file" id="editUpload" accept="image/*">
+<canvas id="editCanvas"></canvas>
+<div>
+<button class="btn" onclick="filterSoft()">薄雾柔光滤镜</button>
+<button class="btn" onclick="filterCold()">清冷星空滤镜</button>
+<button class="btn" onclick="filterLowSat()">低饱和温柔滤镜</button>
+<button class="btn" onclick="saveEditImg()">保存修完图片</button>
+</div>
+</div>
+<footer>灵魂渡治愈小站 © 2026</footer>
+<script>
+const canvas = document.getElementById("editCanvas");
+const ctx = canvas.getContext("2d");
+let originImg = null;
+// 上传图片
+document.getElementById("editUpload").addEventListener("change",function(e){
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = ev=>{
+        originImg = new Image();
+        originImg.src = ev.target.result;
+        originImg.onload = ()=>{
+            canvas.width = originImg.width;
+            canvas.height = originImg.height;
+            ctx.drawImage(originImg,0,0);
+        }
+    }
+    reader.readAsDataURL(file);
+})
+// 薄雾柔光
+function filterSoft(){
+    if(!originImg) return alert("请先上传图片");
+    ctx.drawImage(originImg,0,0);
+    const imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+    const data = imgData.data;
+    for(let i=0;i<data.length;i+=4){
+        data[i] = Math.min(255,data[i]+35);
+        data[i+1] = Math.min(255,data[i+1]+28);
+        data[i+2] = Math.min(255,data[i+2]+45);
+    }
+    ctx.putImageData(imgData,0,0);
+}
+// 清冷星空
+function filterCold(){
+    if(!originImg) return alert("请先上传图片");
+    ctx.drawImage(originImg,0,0);
+    const imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+    const data = imgData.data;
+    for(let i=0;i<data.length;i+=4){
+        data[i] = data[i] * 0.55;
+        data[i+1] = data[i+1] * 0.65;
+        data[i+2] = Math.min(255,data[i+2]+60);
+    }
+    ctx.putImageData(imgData,0,0);
+}
+// 低饱和温柔
+function filterLowSat(){
+    if(!originImg) return alert("请先上传图片");
+    ctx.drawImage(originImg,0,0);
+    const imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+    const data = imgData.data;
+    for(let i=0;i<data.length;i+=4){
+        let r = data[i],g=data[i+1],b=data[i+2];
+        let gray = (r+g+b)/3;
+        data[i] = gray*0.82 + r*0.18;
+        data[i+1] = gray*0.82 + g*0.18;
+        data[i+2] = gray*0.82 + b*0.18 + 25;
+    }
+    ctx.putImageData(imgData,0,0);
+}
+// 保存图片
+function saveEditImg(){
+    const a = document.createElement("a");
+    a.download = "治愈修图.png";
+    a.href = canvas.toDataURL("image/png");
+    a.click();
+}
+
+// 星光粒子
+function createStar(){
+const star = document.createElement('div');
+star.className = 'star';
+star.innerHTML = '✦';
+star.style.left = Math.random()*100+'vw';
+star.style.fontSize = Math.random()*18+6+'px';
+star.style.color = ['#a8b8ff','#d0daff','#fff'][Math.floor(Math.random()*3)];
+document.body.appendChild(star);
+setTimeout(()=>star.remove(),12000);
+}
+setInterval(createStar,400);
+function toggleTheme(){
+document.body.classList.toggle('dark');
+document.body.classList.toggle('light');
+}
+window.onload = function(){
+let saveBg = localStorage.getItem("soulGlobalBg");
+if(saveBg){
+document.body.style.backgroundImage = `url(${saveBg})`;
+document.body.style.backgroundSize = "cover";
+document.body.style.backgroundAttachment = "fixed";
+document.body.style.backgroundRepeat = "no-repeat";
+}
+}
+</script>
+</body>
+</html>
