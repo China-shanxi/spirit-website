@@ -1,128 +1,244 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>精神小伙&精神小妹潮流根据地</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灵魂渡｜治愈心灵安静小站</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"思源宋体",serif;}
+/* 双主题样式 */
+body.dark{background:#0c101c;color:#e8edf7;}
+body.light{background:#f7f9ff;color:#222940;}
+/* 漂浮星光粒子 */
+.star{position:fixed;pointer-events:none;animation:starFloat 12s linear infinite;opacity:0.6;z-index:-1;}
+@keyframes starFloat{
+0%{transform:translateY(100vh) rotate(0deg);opacity:0;}
+15%{opacity:1;}
+85%{opacity:1;}
+100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}
+}
+/* 微光霓虹标题 */
+.soul-title{
+font-size:38px;font-weight:300;letter-spacing:6px;
+color:#fff;
+text-shadow:
+0 0 6px #a8b8ff,
+0 0 12px #839cff,
+0 0 24px #627fff;
+animation:softFlash 3s ease-in-out infinite alternate;
+}
+@keyframes softFlash{0%{opacity:0.75;}100%{opacity:1;}}
+/* 顶部滚动公告 */
+.broad{width:100%;height:36px;background:#b8c8ff;line-height:36px;overflow:hidden;}
+.broad-text{white-space:nowrap;animation:broadRun 24s linear infinite;color:#0c101c;font-size:15px;}
+@keyframes broadRun{0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
+/* 导航栏 */
+nav{width:100%;background:rgba(20,26,44,0.75);padding:16px 0;text-align:center;border-bottom:1px solid #839cff60;backdrop-filter:blur(6px);}
+nav a{color:#d0daff;text-decoration:none;margin:0 14px;padding:9px 16px;border-radius:26px;transition:0.4s;font-size:16px;}
+nav a:hover{background:#839cff;color:#0c101c;box-shadow:0 0 14px #839cff70;}
+/* 内容容器 */
+.box{width:92%;max-width:1250px;margin:32px auto;padding:28px;border-radius:20px;border:1px solid #839cff40;background:rgba(30,38,60,0.4);box-shadow:0 0 30px #627fff20;backdrop-filter:blur(4px);}
+.box h2{margin-bottom:22px;color:#a8b8ff;border-left:4px solid #839cff;padding-left:12px;font-weight:400;}
+/* 轮播治愈图 */
+.banner{width:100%;height:340px;border-radius:14px;overflow:hidden;margin:24px 0;position:relative;}
+.banner-wrap{display:flex;width:400%;animation:bannerLoop 24s linear infinite;}
+.banner-wrap img{width:100%;height:340px;object-fit:cover;}
+@keyframes bannerLoop{0%{transform:translateX(0);}100%{transform:translateX(-300%);}}
+/* 按钮通用 */
+.btn{display:inline-block;padding:11px 24px;background:linear-gradient(45deg,#839cff,#627fff);color:#0c101c;border:none;border-radius:32px;font-weight:500;cursor:pointer;margin:10px;transition:0.35s;font-size:15px;}
+.btn:hover{transform:scale(1.04);box-shadow:0 0 18px #839cff80;}
+/* 主题切换按钮 */
+.theme-switch{position:fixed;top:18px;right:20px;z-index:999;}
+/* 访客统计文字 */
+.visit-num{color:#c0ccff;margin-top:12px;font-size:15px;letter-spacing:1px;}
+/* 悬浮迷你播放器 */
+.mini-audio{position:fixed;bottom:24px;right:24px;background:rgba(12,16,28,0.85);padding:14px;border-radius:50px;border:1px solid #839cff;z-index:998;backdrop-filter:blur(5px);}
+footer{margin-top:60px;padding:24px;text-align:center;color:#949fc7;font-size:14px;border-top:1px solid #839cff25;}
+</style>
 </head>
-<body>
-    <!-- 顶部霓虹导航 -->
-    <header class="header">
-        <div class="logo">
-            <h1>精神家族聚集地</h1>
-            <p>小伙够帅 小妹够飒</p>
-        </div>
-        <nav class="nav">
-            <a href="#home" class="active">首页</a>
-            <a href="#card">人物图鉴</a>
-            <a href="#words">社会语录</a>
-            <a href="#gallery">潮流相册</a>
-            <a href="#msg">家族留言</a>
-        </nav>
-        <div class="music-box">
-            <button id="musicBtn">播放BGM</button>
-            <audio id="bgMusic" loop>
-                <source src="" type="audio/mpeg">
-            
-        </div>
-    </header>
+<body class="dark">
+<!-- 主题切换按钮 -->
+<div class="theme-switch">
+<button class="btn" onclick="toggleTheme()">切换静谧/温柔模式</button>
+</div>
+<!-- 顶部公告 -->
+<div class="broad">
+<div class="broad-text">灵魂渡｜治愈语录｜冥想轻音乐｜情绪树洞｜自愈投稿｜壁纸素材｜在线柔光修图｜灵魂人设卡片｜可切换全局星空动态背景</div>
+</div>
+<!-- 标题区域 -->
+<div style="text-align:center;margin:30px 0;">
+<h1 class="soul-title">灵魂渡</h1>
+<p style="color:#c0ccff;margin-top:10px;letter-spacing:2px;">接纳自己，安抚灵魂，与情绪和解</p>
+<div class="visit-num" id="visitBox">访问次数加载中...</div>
+</div>
+<!-- 全站导航 -->
+<nav>
+<a href="index.html">首页</a>
+<a href="soulWords.html">灵魂语录</a>
+<a href="soulPic.html">治愈壁纸图库</a>
+<a href="meditation.html">冥想轻音乐</a>
+<a href="treeHole.html">情绪树洞</a>
+<a href="selfHeal.html">自愈图文投稿</a>
+<a href="materialSoul.html">动态背景素材</a>
+<a href="photoEdit.html">柔光图片修图</a>
+<a href="soulCard.html">灵魂人设卡片</a>
+<a href="matchSoul.html">氛围感好物</a>
+</nav>
+<!-- 顶部轮播 -->
+<div class="box">
+<div class="banner">
+<div class="banner-wrap">
+<img src="https://picsum.photos/id/1019/1200/340" alt="星空治愈">
+<img src="https://picsum.photos/id/1036/1200/340" alt="晚风海边">
+<img src="https://picsum.photos/id/1043/1200/340" alt="山间薄雾">
+<img src="https://picsum.photos/id/1068/1200/340" alt="温柔晚霞">
+</div>
+</div>
+</div>
+<!-- 今日治愈短句 -->
+<div class="box">
+<h2>今日灵魂短句</h2>
+<div id="nowWord" style="padding:20px;background:rgba(10,14,30,0.5);border-radius:12px;line-height:2;font-size:18px;color:#d0daff;">允许一切发生，允许自己不完美。</div>
+<button class="btn" onclick="refreshWord()">更换短句</button>
+<button class="btn" onclick="copyWord()">复制文案</button>
+<button class="btn" onclick="makeWordPoster()">生成治愈海报</button>
+</div>
+<!-- 快捷工具区 -->
+<div class="box">
+<h2>心灵工具直达</h2>
+<div>
+<a href="soulPic.html" class="btn">治愈壁纸图库</a>
+<a href="photoEdit.html" class="btn">图片柔光修图</a>
+<a href="materialSoul.html" class="btn">切换全局星空背景</a>
+<a href="soulCard.html" class="btn">制作灵魂人设卡</a>
+<a href="treeHole.html" class="btn">树洞倾诉情绪</a>
+</div>
+</div>
+<!-- 悬浮迷你播放器 -->
+<div class="mini-audio">
+<audio id="miniBgm" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3">
 
-    <!-- 首页轮播横幅 -->
-    <section id="home" class="banner">
-        <div class="banner-wrap">
-            <div class="banner-item active">
-                <div class="banner-text">
-                    <h2>精神小伙 气质拉满</h2>
-                    <p>不攀不比，做自己的潮流天花板</p>
-                </div>
-            </div>
-            <div class="banner-item">
-                <div class="banner-text">
-                    <h2>精神小妹 气场全开</h2>
-                    <p>妆容精致，走路自带闪光灯</p>
-                </div>
-            </div>
-            <div class="banner-item">
-                <div class="banner-text">
-                    <h2>全网精神家族集合地</h2>
-                    <p>同款穿搭、热门语录、潮流合拍</p>
-                </div>
-            </div>
-        </div>
-        <div class="dots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-    </section>
-
-    <div class="container">
-        <!-- 人物图鉴 -->
-        <section id="card" class="module">
-            <h2 class="title">人物图鉴｜精神小伙&小妹</h2>
-            <div class="card-wrap">
-                <div class="person-card">
-                    <div class="avatar boy"></div>
-                    <h3>标准精神小伙</h3>
-                    <p>锅盖头、紧身裤、豆豆鞋、走路外八</p>
-                </div>
-                <div class="person-card">
-                    <div class="avatar girl"></div>
-                    <h3>标准精神小妹</h3>
-                    <p>浓眼线、刘海贴、发色亮眼、穿搭辣妹</p>
-                </div>
-                <div class="person-card">
-                    <div class="avatar cp"></div>
-                    <h3>精神CP组合</h3>
-                    <p>一对潮流搭子，走到哪都是焦点</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 社会语录墙 -->
-        <section id="words" class="module word-wall">
-            <h2 class="title">热门精神语录</h2>
-            <div class="word-list">
-                <div class="word-item">花花世界迷人眼，没有实力别赛脸</div>
-                <div class="word-item">刀配鞘，人配道，精神小伙不胡闹</div>
-                <div class="word-item">小妹不花心，只是身边人多</div>
-                <div class="word-item">天高地厚别狂傲，低调才是王道</div>
-                <div class="word-item">一身气质一身骨，不做世间风尘物</div>
-                <div class="word-item">精神不分年龄段，气质到位人人酷</div>
-            </div>
-        </section>
-
-        <!-- 潮流相册 -->
-        <section id="gallery" class="module">
-            <h2 class="title">潮流穿搭相册</h2>
-            <div class="gallery-wrap">
-                <div class="gallery-item">小伙穿搭</div>
-                <div class="gallery-item">小妹妆容</div>
-                <div class="gallery-item">合拍街拍</div>
-                <div class="gallery-item">发色造型</div>
-                <div class="gallery-item">网红配饰</div>
-                <div class="gallery-item">热门手势</div>
-            </div>
-        </section>
-
-        <!-- 家族留言板 -->
-        <section id="msg" class="module">
-            <h2 class="title">家族留言区</h2>
-            <div class="msg-input-box">
-                <input type="text" id="userName" placeholder="你的称呼">
-                <textarea id="userMsg" placeholder="留下你的精神文案"></textarea>
-                <button id="sendMsg">发布留言</button>
-            </div>
-            <div id="msgBox" class="msg-show"></div>
-        </section>
-    </div>
-
-    <!-- 底部 -->
-    <footer class="footer">
-        <p>© 2026 精神家族潮流网站 | 纯静态GitHub Pages展示站</p>
-    </footer>
-
-    <script src="script.js"></script>
+<button class="btn" onclick="audioCtrl()">播放/暂停白噪音</button>
+</div>
+<!-- 页脚 -->
+<footer>
+灵魂渡治愈小站 © 2026 | 全部素材仅供心灵自愈使用 | 本地存储数据，清除浏览器缓存会重置记录
+</footer>
+<!-- 隐藏画布：生成海报 -->
+<canvas id="wordCanvas" style="display:none;"></canvas>
+<script>
+// 1. 生成漂浮星光粒子
+function createStar(){
+const star = document.createElement('div');
+star.className = 'star';
+star.innerHTML = '✦';
+star.style.left = Math.random()*100+'vw';
+star.style.fontSize = Math.random()*18+6+'px';
+star.style.color = ['#a8b8ff','#d0daff','#fff'][Math.floor(Math.random()*3)];
+document.body.appendChild(star);
+setTimeout(()=>star.remove(),12000);
+}
+setInterval(createStar,400);
+// 鼠标跟随微光光点
+document.addEventListener('mousemove',e=>{
+let light = document.createElement('div');
+light.style.position='fixed';
+light.style.left=e.clientX+'px';
+light.style.top=e.clientY+'px';
+light.style.pointerEvents='none';
+light.style.color='#a8b8ff';
+light.innerText='✧';
+light.style.fontSize='16px';
+light.style.zIndex='9999';
+document.body.appendChild(light);
+setTimeout(()=>light.remove(),700);
+})
+// 2. 灵魂语录库
+const wordList = [
+"允许一切发生，允许自己不完美。",
+"不必追赶月光，你本身就温柔发光。",
+"内耗源于期待，自愈始于放下。",
+"慢下来，灵魂才能跟上脚步。",
+"世间万般苦难，都是心灵的修行。",
+"不必所有人理解你，心安即是归处。",
+"失眠的夜晚，是灵魂在和自己对话。",
+"与自己和解，是一生最重要的课题。"
+];
+// 刷新短句
+function refreshWord(){
+let r = Math.floor(Math.random()*wordList.length);
+document.getElementById('nowWord').innerText = wordList[r];
+}
+// 复制文案
+function copyWord(){
+let text = document.getElementById('nowWord').innerText;
+navigator.clipboard.writeText(text).then(()=>alert("文案复制成功，送给内心疲惫的自己"));
+}
+// 生成语录海报画布
+function makeWordPoster(){
+let text = document.getElementById('nowWord').innerText;
+let canvas = document.getElementById('wordCanvas');
+canvas.width = 750;canvas.height = 1334;
+let ctx = canvas.getContext('2d');
+// 渐变星空背景
+let grad = ctx.createLinearGradient(0,0,750,1334);
+grad.addColorStop(0,"#0c101c");
+grad.addColorStop(0.5,"#303f70");
+grad.addColorStop(1,"#839cff");
+ctx.fillStyle = grad;
+ctx.fillRect(0,0,750,1334);
+// 文字绘制自动换行
+ctx.fillStyle = "#e8edf7";
+ctx.font = "38px 思源宋体";
+ctx.textAlign = "center";
+let line = "";let y = 620;
+for(let char of text){
+let test = line + char;
+if(ctx.measureText(test).width > 640){
+ctx.fillText(line,375,y);
+line = char;y += 72;
+}else line = test;
+}
+ctx.fillText(line,375,y);
+// 底部小字
+ctx.font = "24px 思源宋体";
+ctx.fillStyle = "#c0ccff";
+ctx.fillText("灵魂渡 · 治愈心灵小站",375,1220);
+// 下载图片
+let a = document.createElement('a');
+a.download = "灵魂治愈海报.png";
+a.href = canvas.toDataURL("image/png");
+a.click();
+}
+// 3. 背景音乐控制
+const audio = document.getElementById('miniBgm');
+function audioCtrl(){
+if(audio.paused) audio.play();else audio.pause();
+}
+// 4. 明暗主题切换
+function toggleTheme(){
+document.body.classList.toggle('dark');
+document.body.classList.toggle('light');
+}
+// 5. 本地访客计数（拓展功能）
+function countVisit(){
+let num = localStorage.getItem("soulVisitTotal") || 0;
+num = Number(num)+1;
+localStorage.setItem("soulVisitTotal",num);
+document.getElementById("visitBox").innerText = "本站累计心灵访客："+num+" 位";
+}
+countVisit();
+// 6. 读取全局自定义背景（素材页设置）
+window.onload = function(){
+let saveBg = localStorage.getItem("soulGlobalBg");
+if(saveBg){
+document.body.style.backgroundImage = `url(${saveBg})`;
+document.body.style.backgroundSize = "cover";
+document.body.style.backgroundAttachment = "fixed";
+document.body.style.backgroundRepeat = "no-repeat";
+}
+}
+</script>
 </body>
 </html>
